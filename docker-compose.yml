@@ -1,0 +1,17 @@
+version: '3.1'
+services:
+  mongo-local-test:
+    image: 'mongo:5.0'
+    container_name: 'mongo-local-test'
+    restart: unless-stopped
+    ports:
+      - ${EXPOSE_PORT}:27017
+    volumes:
+      - ./init-mongo.js:/docker-entrypoint-initdb.d/init.js:ro
+      - ./data:/data/db:rw
+    environment:
+      - MONGO_DATABASE=${MONGO_DATABASE}
+      - MONGO_USERNAME=${MONGO_USERNAME}
+      - MONGO_PASSWORD=${MONGO_PASSWORD}
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_ROOT_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_ROOT_PASSWORD}
